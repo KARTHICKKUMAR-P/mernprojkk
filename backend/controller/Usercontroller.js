@@ -4,7 +4,7 @@ export const create = async (req, res) => {
     try {
         let userdata = new user(req.body);
         const {email} = userdata;
-        const userExit = await user.findOne({email});
+        const userExit = await user.findOne({email:email});
         if(userExit){
             return res.status(400).json({message:"User already exist"});
         }
@@ -49,8 +49,7 @@ export const update = async (req, res) => {
 }
 export const check=async (req,res)=>{
     try{
-        const id=req.params.id
-    const users=await user.findOne({_id:id})
+    const users=await user.find()
     if(users){
         res.status(200).json({message:users})
     }
